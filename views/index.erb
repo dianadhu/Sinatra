@@ -1,0 +1,33 @@
+<% %>
+<section id="add">
+    <form class="" action="/" method="post">
+        <textarea name="content" rows="8" cols="30" placeholder="Escribe tu tarea en este espacio."></textarea>
+        <input type="submit" value="Tarea" class="boton_create">
+    </form>
+</section>
+
+
+<h3>Lista de tareas:</h3>
+<% @task.each do |elemento| %>
+    <table>
+        <tr>
+            <ul>
+                <td><li><%=elemento["title"]%></li></td>
+                    <% if elemento["done"]==false %>
+                        <form class="" action="/update/<%=elemento["id"]%>" method="post">
+                            <input type="hidden" name="_method" value="put">
+                            <td><input type="submit" value="Completa" class="boton_complete"></td>
+                        </form>
+                    <% else %>
+                        <td><div class="hecho">¡Listo!</div></td>
+                    <% end %>
+
+                    <p><form class="" action="/delete/<%=elemento["id"]%>" method="post">
+                        <input type="hidden" name="_method" value="Eliminar">
+                        <td><input type="submit" value="Delete" class="boton_delete"></td>
+                    </form></p>
+            </ul>
+            <td></td>
+        </tr>
+    </table>
+<% end %>
